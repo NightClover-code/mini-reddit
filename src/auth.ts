@@ -1,17 +1,36 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { db } from '@/db';
 
-// const options = {
-//   providers: [
-//     Providers.GitHub({
-//       clientId: process.env.GITHUB_CLIENT_ID,
-//       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//     }),
-//     // Add other providers here if needed
-//   ],
-//   // Add any other NextAuth.js options here
-// };
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
-// export default (req, res) => NextAuth(req, res, options);
+if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
+  throw new Error('Please to define secrets in your .env file');
+}
+
+const authOptions: NextAuthConfig = {
+  adapter: PrismaAdapter(db),
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+  ],
+  callbacks: {
+    async session({ session, user }: any) {
+      if (session && user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
+};
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth(authOptions);
