@@ -1,7 +1,12 @@
 import * as actions from '@/actions';
 import { Button } from '@nextui-org/react';
+import { auth } from '@/auth';
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
+  console.log(session?.user);
+
   return (
     <div>
       <form action={actions.signIn}>
@@ -10,6 +15,8 @@ export default function Home() {
       <form action={actions.signOut}>
         <Button type="submit">Sign Out</Button>
       </form>
+
+      {session?.user ? 'Signed in' : 'Not signed in'}
     </div>
   );
 }
