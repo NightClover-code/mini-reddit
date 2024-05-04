@@ -16,6 +16,7 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useFormState } from 'react-dom';
 import toast from 'react-hot-toast';
+import FormButton from '../common/form-button';
 
 type backdropType = 'blur' | 'opaque' | 'transparent';
 
@@ -94,9 +95,7 @@ export default function TopicCreateForm() {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" type="submit">
-                  Create
-                </Button>
+                <FormButton>Create</FormButton>
               </ModalFooter>
             </form>
           )}

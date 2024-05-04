@@ -21,7 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Toaster position="top-center" />
+          <Toaster
+            position="top-center"
+            toastOptions={{ style: { maxWidth: 'none' } }}
+          />
           <Header />
           <div className="max-w-5xl m-auto">{children}</div>
         </Providers>
