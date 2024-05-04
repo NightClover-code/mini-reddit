@@ -6,7 +6,6 @@ import { CreateTopicFormState } from '@/interfaces';
 import { createTopicSchema } from '@/validations';
 import { db } from '@/db';
 import paths from '@/paths';
-import toast from 'react-hot-toast';
 import { revalidatePath } from 'next/cache';
 
 export async function createTopic(
@@ -33,10 +32,8 @@ export async function createTopic(
     });
   } catch (error) {
     if (error instanceof Error) {
-      toast.error(error.message);
       return { errors: { _form: [error.message] } };
     } else {
-      toast.error('Something went wrong.');
       return { errors: { _form: ['Something went wrong.'] } };
     }
   }

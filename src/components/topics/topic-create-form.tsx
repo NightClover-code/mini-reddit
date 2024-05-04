@@ -1,6 +1,7 @@
 'use client';
 
 import { createTopic } from '@/actions';
+import { CreateTopicFormState } from '@/interfaces';
 import {
   Modal,
   ModalContent,
@@ -19,14 +20,29 @@ import toast from 'react-hot-toast';
 type backdropType = 'blur' | 'opaque' | 'transparent';
 
 export default function TopicCreateForm() {
-  const [formState, action] = useFormState(createTopic, {
-    errors: {},
-  });
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [backdrop, setBackdrop] = useState<backdropType>('blur');
   const session = useSession();
 
-  const handleOpen = (backdrop: backdropType) => {
+  async function clientCreateTopicAction(
+    formState: CreateTopicFormState,
+    formData: FormData
+  ): Promise<CreateTopicFormState> {
+    const result = await createTopic(formState, formData);
+
+    if (result.errors._form) {
+      toast.error(result.errors._form.join(', '));
+      return result;
+    }
+
+    return result;
+  }
+
+  const [formState, action] = useFormState(clientCreateTopicAction, {
+    errors: {},
+  });
+
+  async function handleOpen(backdrop: backdropType) {
     if (!session.data?.user) {
       toast.error('You must be logged in to create a topic.');
       return null;
@@ -34,7 +50,7 @@ export default function TopicCreateForm() {
 
     setBackdrop(backdrop);
     onOpen();
-  };
+  }
 
   return (
     <>
