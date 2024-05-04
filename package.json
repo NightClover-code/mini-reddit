@@ -10,12 +10,12 @@
     "migrate:dev": "dotenv -e .env.local -- npx prisma migrate dev"
   },
   "dependencies": {
-    "@auth/core": "0.18.1",
-    "@auth/prisma-adapter": "1.0.6",
-    "@nextui-org/react": "2.2.9",
+    "@auth/core": "0.30.0",
+    "@auth/prisma-adapter": "2.0.0",
+    "@nextui-org/react": "2.3.6",
     "@prisma/client": "^5.13.0",
     "framer-motion": "^11.1.7",
-    "next": "14.0.2",
+    "next": "14.2.3",
     "next-auth": "5.0.0-beta.3",
     "prisma": "^5.13.0",
     "react": "^18",
@@ -25,11 +25,11 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.2",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9",
+    "eslint-config-next": "14.2.3",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5"
   }
 }
