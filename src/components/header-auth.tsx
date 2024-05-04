@@ -1,16 +1,11 @@
 'use client';
 
-import {
-  NavbarContent,
-  NavbarItem,
-  Button,
-  Skeleton,
-  Spinner,
-} from '@nextui-org/react';
+import { Button, Spinner } from '@nextui-org/react';
 import { signIn } from '@/actions';
 import UserProfile from '@/components/user-profile';
 import { FaGithub } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export default function HeaderAuth() {
   const session = useSession();

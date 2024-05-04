@@ -2,7 +2,6 @@
 
 import { signOut } from '@/actions';
 import {
-  NavbarContent,
   DropdownItem,
   DropdownTrigger,
   Dropdown,
@@ -17,6 +16,10 @@ export default function UserProfile() {
   if (!session.data?.user) return null;
 
   const { email, image, name } = session.data.user;
+
+  const handleSignOut = async () => {
+    signOut();
+  };
 
   return (
     <Dropdown placement="bottom-end">
@@ -34,13 +37,9 @@ export default function UserProfile() {
       <DropdownMenu aria-label="Profile Actions" variant="flat">
         <DropdownItem key="profile" className="h-14 gap-2">
           <p className="font-semibold">Signed in as</p>
-          <p className="font-semibold">{email}</p>
+          <p className="font-semibold">{name}</p>
         </DropdownItem>
-        <DropdownItem
-          key="logout"
-          color="danger"
-          onClick={async () => signOut()}
-        >
+        <DropdownItem key="logout" color="danger" onClick={handleSignOut}>
           Log Out
         </DropdownItem>
       </DropdownMenu>
