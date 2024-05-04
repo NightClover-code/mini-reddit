@@ -48,12 +48,14 @@ export default function TopicCreateForm() {
               <ModalBody>
                 <Input
                   autoFocus
+                  name="name"
                   label="Name"
                   placeholder="Enter a topic name"
                   variant="bordered"
                 />
                 <Input
-                  label="Topic"
+                  label="Description"
+                  name="description"
                   placeholder="Describe your topic"
                   variant="bordered"
                 />
