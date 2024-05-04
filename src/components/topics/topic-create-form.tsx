@@ -9,19 +9,29 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-  Checkbox,
-  Link,
   Input,
 } from '@nextui-org/react';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+import { useFormState } from 'react-dom';
+import toast from 'react-hot-toast';
 
 type backdropType = 'blur' | 'opaque' | 'transparent';
 
 export default function TopicCreateForm() {
+  const [formState, action] = useFormState(createTopic, {
+    errors: {},
+  });
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [backdrop, setBackdrop] = useState<backdropType>('blur');
+  const session = useSession();
 
   const handleOpen = (backdrop: backdropType) => {
+    if (!session.data?.user) {
+      toast.error('You must be logged in to create a topic.');
+      return null;
+    }
+
     setBackdrop(backdrop);
     onOpen();
   };
@@ -41,7 +51,7 @@ export default function TopicCreateForm() {
       >
         <ModalContent>
           {onClose => (
-            <form action={createTopic}>
+            <form action={action}>
               <ModalHeader className="flex flex-col gap-1">
                 Create a topic
               </ModalHeader>
@@ -52,12 +62,16 @@ export default function TopicCreateForm() {
                   label="Name"
                   placeholder="Enter a topic name"
                   variant="bordered"
+                  isInvalid={!!formState.errors.name}
+                  errorMessage={formState.errors.name?.join(', ')}
                 />
                 <Input
                   label="Description"
                   name="description"
                   placeholder="Describe your topic"
                   variant="bordered"
+                  isInvalid={!!formState.errors.description}
+                  errorMessage={formState.errors.description?.join(', ')}
                 />
               </ModalBody>
               <ModalFooter>
