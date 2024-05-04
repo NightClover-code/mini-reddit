@@ -26,7 +26,7 @@ yarn install
 
 Add Environment Variables 
 
-Check out the env variable in the `.env.example` file.
+Check out the env variables in the `.env.example` file.
 
 `DATABASE_URL` is a connection string to a local PostgreSQL database, I run mine using Docker.
 
