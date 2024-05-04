@@ -8,7 +8,7 @@ import {
   Input,
   NavbarItem,
 } from '@nextui-org/react';
-import { SearchIcon } from '../icons/search-icon';
+import { SearchIcon } from './icons/search-icon';
 import HeaderAuth from '@/components/header-auth';
 
 export default async function Header() {
