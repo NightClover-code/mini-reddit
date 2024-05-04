@@ -4,43 +4,14 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
   Link,
   Input,
-  Button,
+  NavbarItem,
 } from '@nextui-org/react';
 import { SearchIcon } from '../icons/search-icon';
-import { signIn } from '@/actions';
-import { auth } from '@/auth';
-import UserProfile from '@/components/user-profile';
-import { FaGithub } from 'react-icons/fa';
+import HeaderAuth from '@/components/header-auth';
 
 export default async function Header() {
-  const session = await auth();
-
-  let authContent: React.ReactNode;
-
-  if (session?.user) {
-    authContent = <UserProfile />;
-  } else {
-    authContent = (
-      <NavbarContent as="div" justify="end">
-        <NavbarItem>
-          <form action={signIn}>
-            <Button
-              className="bg-black text-white"
-              variant="flat"
-              type="submit"
-            >
-              <FaGithub size={18} />
-              Sign In with GitHub
-            </Button>
-          </form>
-        </NavbarItem>
-      </NavbarContent>
-    );
-  }
-
   return (
     <Navbar isBordered>
       <NavbarBrand className="mr-4">
@@ -65,7 +36,11 @@ export default async function Header() {
         />
       </NavbarContent>
 
-      {authContent}
+      <NavbarContent as="div" justify="end">
+        <NavbarItem>
+          <HeaderAuth />
+        </NavbarItem>
+      </NavbarContent>
     </Navbar>
   );
 }
