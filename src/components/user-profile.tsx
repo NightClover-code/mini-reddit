@@ -11,14 +11,15 @@ import {
 import { useSession } from 'next-auth/react';
 
 export default function UserProfile() {
-  const session = useSession();
+  const { data: session, update } = useSession();
 
-  if (!session.data?.user) return null;
+  if (!session?.user) return null;
 
-  const { email, image, name } = session.data.user;
+  const { email, image, name } = session.user;
 
   const handleSignOut = async () => {
-    signOut();
+    await signOut();
+    update(); //Manually update the session
   };
 
   return (

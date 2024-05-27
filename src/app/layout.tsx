@@ -26,7 +26,7 @@ export default function RootLayout({
             toastOptions={{ style: { maxWidth: 'none' } }}
           />
           <Header />
-          <div className="max-w-5xl m-auto">{children}</div>
+          <main className="max-w-5xl m-auto">{children}</main>
         </Providers>
       </body>
     </html>

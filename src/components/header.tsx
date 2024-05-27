@@ -1,5 +1,3 @@
-'use server';
-
 import {
   Navbar,
   NavbarBrand,
