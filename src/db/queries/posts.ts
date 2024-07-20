@@ -33,3 +33,19 @@ export function fetchTopPosts(): Promise<PostWithData[]> {
     take: 5,
   });
 }
+
+export function searchPosts(term: string): Promise<PostWithData[]> {
+  return db.post.findMany({
+    where: {
+      OR: [
+        { title: { contains: term, mode: 'insensitive' } },
+        { content: { contains: term, mode: 'insensitive' } },
+      ],
+    },
+    include: {
+      topic: { select: { slug: true } },
+      user: { select: { name: true, image: true } },
+      _count: { select: { comments: true } },
+    },
+  });
+}
