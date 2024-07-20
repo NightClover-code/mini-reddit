@@ -5,6 +5,7 @@ import { signIn } from '@/actions';
 import UserProfile from '@/components/user-profile';
 import { FaGithub } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
+import FormButton from './common/form-button';
 
 export default function HeaderAuth() {
   const session = useSession();
@@ -18,10 +19,14 @@ export default function HeaderAuth() {
   } else {
     authContent = (
       <form action={signIn}>
-        <Button className="bg-black text-white" variant="flat" type="submit">
+        <FormButton
+          className="bg-black text-white"
+          variant="flat"
+          type="submit"
+        >
           <FaGithub size={18} />
           Sign In with GitHub
-        </Button>
+        </FormButton>
       </form>
     );
   }

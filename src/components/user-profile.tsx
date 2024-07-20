@@ -8,18 +8,18 @@ import {
   DropdownMenu,
   Avatar,
 } from '@nextui-org/react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut as nextAuthSignOut } from 'next-auth/react';
 
 export default function UserProfile() {
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
 
   if (!session?.user) return null;
 
-  const { email, image, name } = session.user;
+  const { image, name } = session.user;
 
   const handleSignOut = async () => {
     await signOut();
-    update(); //Manually update the session
+    await nextAuthSignOut({ redirect: false });
   };
 
   return (
