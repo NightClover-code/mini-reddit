@@ -5,3 +5,18 @@ export interface CreateTopicFormState {
     _form?: string[];
   };
 }
+export interface CreatePostFormState {
+  errors: {
+    title?: string[];
+    content?: string[];
+    _form?: string[];
+  };
+}
+
+export interface CreateCommentFormState {
+  errors: {
+    content?: string[];
+    _form?: string[];
+  };
+  success?: boolean;
+}

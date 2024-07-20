@@ -4,7 +4,6 @@ import './globals.css';
 import Providers from './providers';
 import Header from '@/components/header';
 import { Toaster } from 'react-hot-toast';
-import ReactQueryProvider from '@/utils/providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,17 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ReactQueryProvider>
-          <Providers>
-            <Toaster
-              position="top-center"
-              toastOptions={{ style: { maxWidth: 'none' } }}
-            />
-            <Header />
-            <main className="max-w-5xl m-auto">{children}</main>
-          </Providers>
-        </ReactQueryProvider>
+      <body className={inter.className} suppressHydrationWarning>
+        <Providers>
+          <Toaster
+            position="top-center"
+            toastOptions={{ style: { maxWidth: 'none' } }}
+          />
+          <Header />
+          <main className="max-w-5xl m-auto">{children}</main>
+        </Providers>
       </body>
     </html>
   );

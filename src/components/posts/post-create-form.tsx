@@ -1,7 +1,6 @@
 'use client';
 
-import { createTopic } from '@/actions';
-import { CreateTopicFormState } from '@/interfaces';
+import { createPost } from '@/actions';
 import {
   Modal,
   ModalContent,
@@ -20,12 +19,18 @@ import FormButton from '../common/form-button';
 
 type backdropType = 'blur' | 'opaque' | 'transparent';
 
-export default function TopicCreateForm() {
+interface PostCreateFormProps {
+  slug: string;
+}
+
+export default function PostCreateForm({ slug }: PostCreateFormProps) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [backdrop, setBackdrop] = useState<backdropType>('blur');
   const session = useSession();
 
-  const [formState, action] = useFormState(createTopic, {
+  const createPostBound = createPost.bind(null, slug);
+
+  const [formState, action] = useFormState(createPostBound, {
     errors: {},
   });
 
@@ -39,7 +44,7 @@ export default function TopicCreateForm() {
 
   async function handleOpen(backdrop: backdropType) {
     if (!session.data?.user) {
-      toast.error('You must be logged in to create a topic.');
+      toast.error('You must be logged in to create a post.');
       return null;
     }
 
@@ -50,7 +55,7 @@ export default function TopicCreateForm() {
   return (
     <>
       <Button onPress={() => handleOpen(backdrop)} color="primary">
-        Create Topic
+        Create Post
       </Button>
 
       <Modal
@@ -64,25 +69,25 @@ export default function TopicCreateForm() {
           {onClose => (
             <form action={action}>
               <ModalHeader className="flex flex-col gap-1">
-                Create a topic
+                Create a post
               </ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
-                  name="name"
-                  label="Name"
-                  placeholder="Enter a topic name"
+                  name="title"
+                  label="Title"
+                  placeholder="Enter a post title"
                   variant="bordered"
-                  isInvalid={!!formState.errors.name}
-                  errorMessage={formState.errors.name?.join(', ')}
+                  isInvalid={!!formState.errors.title}
+                  errorMessage={formState.errors.title?.join(', ')}
                 />
                 <Input
-                  label="Description"
-                  name="description"
-                  placeholder="Describe your topic"
+                  label="Content"
+                  name="content"
+                  placeholder="Write content for your post"
                   variant="bordered"
-                  isInvalid={!!formState.errors.description}
-                  errorMessage={formState.errors.description?.join(', ')}
+                  isInvalid={!!formState.errors.content}
+                  errorMessage={formState.errors.content?.join(', ')}
                 />
               </ModalBody>
               <ModalFooter>
