@@ -7,7 +7,7 @@ export default async function Home() {
       <div className="col-span-3">
         <h1 className="text-xl m-2">Top Posts</h1>
       </div>
-      <div className="border">
+      <div>
         <TopicCreateForm />
         <TopicList />
       </div>

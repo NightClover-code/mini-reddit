@@ -5,7 +5,7 @@ import { db } from '@/db';
 import { CreatePostFormState } from '@/interfaces';
 import paths from '@/paths';
 import { createPostSchema } from '@/validations/postSchema';
-import { Post } from '@prisma/client';
+import type { Post } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
